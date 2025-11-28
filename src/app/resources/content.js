@@ -98,7 +98,7 @@ const about = {
     experiences: [
       {
         company: "FLY",
-        timeframe: "2022 - Present",
+        timeframe: "2025 - Present",
         role: "Senior Design Engineer",
         achievements: [
           <>
@@ -122,7 +122,7 @@ const about = {
       },
       {
         company: "Creativ3",
-        timeframe: "2018 - 2022",
+        timeframe: "2024 - 2025",
         role: "Lead Designer",
         achievements: [
           <>
@@ -157,8 +157,8 @@ const about = {
     title: "Technical skills",
     skills: [
       {
-        title: "Figma",
-        description: <>Able to prototype in Figma with Once UI with unnatural speed.</>,
+        title: "Full Stack Web Developer",
+        description: <>Building modern web applications with React, Node.js, Express, and MongoDB. Expertise in creating scalable full-stack solutions.</>,
         // optional: leave the array empty if you don't want to display images
         images: [
           {
@@ -176,8 +176,8 @@ const about = {
         ],
       },
       {
-        title: "Next.js",
-        description: <>Building next gen apps with Next.js + Once UI + Supabase.</>,
+        title: "AIML (AI & Machine Learning)",
+        description: <>Developing AI and Machine Learning solutions with Python, TensorFlow, and integrating AI capabilities into modern applications.</>,
         // optional: leave the array empty if you don't want to display images
         images: [
           {
