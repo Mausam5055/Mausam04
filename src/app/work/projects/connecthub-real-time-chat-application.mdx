@@ -1,0 +1,124 @@
+---
+title: "ConnectHub - Real-Time Chat Application"
+publishedAt: "2024-09-20"
+summary: "A full-stack real-time chat application built with the MERN stack and Stream Chat API, featuring user authentication, friend management, instant messaging, and video calling capabilities."
+images:
+  - "/images/projects/project-01/cover-05.png"
+  - "/images/projects/project-01/cover-06.png"
+team:
+  - name: "Mausam Kar"
+    role: "Full Stack Developer"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/mausam-kar-6388861a7/"
+link: "https://connecthub-chat.vercel.app/"
+---
+
+## Project Overview
+
+ConnectHub is a comprehensive real-time chat application that brings modern communication features together in a seamless, user-friendly platform. Developed by Mausam Kar using the MERN stack combined with Stream Chat and Video APIs, this application demonstrates the power of modern web technologies in creating engaging, real-time communication experiences. The platform supports everything from instant messaging to video calls, all within a beautiful, responsive interface.
+
+**Developer:** Mausam Kar  
+**GitHub:** [@Mausam5055](https://github.com/Mausam5055)  
+**Portfolio:** [mausam03.vercel.app](https://mausam03.vercel.app)
+
+## Core Features and Capabilities
+
+ConnectHub implements a robust user authentication system with secure registration and login processes powered by JWT tokens, ensuring that user accounts remain protected while enabling seamless access across sessions. The friend system allows users to send, accept, and decline friend requests, creating a curated network of connections within the platform. This social layer provides the foundation for meaningful conversations and interactions.
+
+The real-time messaging functionality leverages the Stream Chat API to deliver instant message delivery with read receipts, typing indicators, and message history. Users can engage in one-to-one conversations with friends, sharing text messages, emojis, and reactions. The video calling feature, powered by Stream Video API, enables face-to-face conversations directly within the application, eliminating the need for external communication tools.
+
+Notifications keep users informed about important events, alerting them to new friend requests, accepted connections, and incoming messages. The responsive design ensures that ConnectHub works beautifully across all devices, from desktop computers to smartphones, with a mobile-first approach that prioritizes usability on smaller screens. The modern UI, built with Tailwind CSS and enhanced by Shadcn UI and Radix UI components, provides an aesthetically pleasing and intuitive user experience.
+
+## Technical Architecture
+
+The application follows a clean three-tier architecture separating the client layer, server layer, and services layer. The React-based frontend communicates with the Express backend through a well-defined API, while the backend orchestrates interactions with MongoDB for persistent data storage and Stream's APIs for real-time communication features. This separation of concerns makes the codebase maintainable and allows individual components to be updated or replaced without affecting the entire system.
+
+MongoDB serves as the primary database, storing user accounts, friendship relationships, and notification data. The NoSQL structure provides flexibility in data modeling while offering excellent performance for the types of queries the application performs. Stream Chat and Stream Video APIs handle the complex real-time infrastructure, eliminating the need to build and maintain WebSocket servers, message queuing systems, and video streaming infrastructure.
+
+## Backend Implementation
+
+The backend is built with Node.js and Express.js, providing a fast and scalable server environment. Mongoose acts as the ODM layer, defining clear data models and handling database operations with type safety and validation. The three primary data models work together to create the complete user experience.
+
+The User model stores essential account information including name, email, and hashed password, along with a Stream token for API authentication. Each user is uniquely identified by their email address, and passwords are securely hashed using bcrypt.js before storage. The Friendship model maintains the relationships between users, tracking the requester, recipient, and status of each connection. The status field supports pending, accepted, declined, and blocked states, enabling a full range of friend management scenarios.
+
+The Notification model creates a comprehensive notification system that keeps users informed about platform activities. Notifications track the recipient, sender, notification type, related entity ID, read status, and content. This flexible structure supports various notification types including friend requests, accepted connections, and new messages, with room for future expansion.
+
+## API Design and Endpoints
+
+The API is organized into logical route groups, each handling a specific aspect of the application. Authentication routes manage user registration and login, creating new accounts and validating credentials. During registration, the system creates both a database record and a corresponding Stream Chat user, ensuring users are ready to communicate immediately upon account creation.
+
+Friend management routes provide comprehensive functionality for building and maintaining connections. Users can retrieve their existing friends, discover friend suggestions based on mutual connections or other criteria, view pending friend requests, send new requests, and accept or decline incoming requests. Each action updates the database and triggers appropriate notifications, keeping all parties informed of relationship status changes.
+
+The notification system exposes endpoints for retrieving notifications, marking individual notifications as read, and batch-marking all notifications. This granular control allows users to manage their notification feed effectively. Chat routes handle Stream token generation and channel creation, providing the frontend with the credentials needed to establish real-time connections and creating private conversation channels between users.
+
+## Authentication and Security
+
+Security is paramount in ConnectHub's design. The authentication flow begins when a user registers, with the server first checking if the email is already in use. If available, the system creates a new user record with a securely hashed password and simultaneously registers the user with Stream Chat. The server generates a JWT token containing the user's ID, which the client stores and includes in subsequent requests for authentication.
+
+During login, the system verifies the email and password combination, retrieves the user's information, ensures their Stream Chat account exists, and generates fresh JWT tokens. This process maintains security while providing a smooth user experience. All protected routes verify the JWT token through middleware, rejecting unauthorized requests and ensuring that users can only access their own data and authorized resources.
+
+Password hashing uses bcrypt.js with appropriate salt rounds to protect user credentials even in the unlikely event of a database breach. CORS configuration restricts API access to authorized frontend origins, preventing cross-site request attacks. Input validation on the server side ensures that malformed or malicious data cannot corrupt the database or compromise system stability.
+
+## Stream Chat Integration
+
+The integration with Stream Chat provides enterprise-grade real-time messaging without the complexity of building custom infrastructure. When users register, they're automatically added to Stream Chat's systems, receiving a unique identifier that links their database record to their Stream profile. The backend generates secure Stream tokens that authenticate users to Stream's services without exposing API credentials to the frontend.
+
+Channel management creates one-to-one conversation spaces between friends. When users want to chat, the backend creates or retrieves an existing channel, sets appropriate permissions, and adds both participants. All subsequent message exchange happens through Stream's infrastructure, which handles message storage, delivery, synchronization across devices, and real-time updates.
+
+Stream's SDKs on the frontend provide pre-built UI components for chat interfaces, reducing development time while maintaining a high-quality user experience. These components handle typing indicators, read receipts, message reactions, and other features that users expect from modern chat applications.
+
+## Friend System Logic
+
+The friend management system implements a safe, bidirectional relationship model. When User A sends a friend request to User B, the system creates a Friendship record with User A as the requester, User B as the recipient, and a status of pending. A notification is sent to User B informing them of the request.
+
+User B can then accept or decline the request. Acceptance updates the Friendship status to accepted and creates a reciprocal notification for User A, informing them that their request was accepted. The users are now friends and can begin messaging each other. Declining the request updates the status accordingly and removes it from the pending requests list.
+
+This model prevents several edge cases and abuse scenarios. Users cannot send duplicate requests to the same person, cannot accept requests they didn't receive, and the system properly handles simultaneous requests between two users who both want to connect.
+
+## Error Handling and Reliability
+
+Comprehensive error handling ensures that ConnectHub gracefully manages problems when they occur. Validation errors provide clear feedback about what went wrong with user input, helping users correct issues quickly. Authentication errors distinguish between invalid credentials, expired tokens, and other auth-related problems.
+
+Database errors are caught and handled appropriately, with user-friendly messages displayed to clients while detailed error information is logged server-side for debugging. Stream API errors trigger fallback mechanisms, and the system can operate in degraded mode if Stream services are temporarily unavailable. Generic error handlers catch unexpected issues, preventing server crashes and ensuring system stability.
+
+## Frontend Architecture
+
+The React-based frontend uses TypeScript for type safety and improved developer experience. Component-based architecture promotes code reuse and maintainability, with complex UI elements broken down into smaller, focused components. React Router handles client-side navigation, creating a single-page application experience where transitions are instant and don't require full page reloads.
+
+The Context API manages global state for authentication and theme preferences, making this information available throughout the component tree without prop drilling. Tailwind CSS enables rapid UI development with utility classes, while Shadcn UI and Radix UI provide accessible, well-tested components like dialogs, dropdowns, and form inputs.
+
+Stream Chat React and Stream Video React components integrate seamlessly with the backend, automatically establishing WebSocket connections and managing real-time state updates. These pre-built components handle the complexity of real-time communication while remaining customizable to match ConnectHub's design language.
+
+## Deployment Strategy
+
+The deployment architecture takes advantage of specialized hosting platforms for optimal performance and reliability. The backend runs on Render, which provides managed Node.js hosting with automatic deployments from Git, environment variable management, and health monitoring. MongoDB Atlas hosts the database, offering automated backups, scalability, and geographic distribution for low-latency access.
+
+The frontend deploys to Vercel, leveraging their edge network for fast global access. Every commit to the main branch triggers automatic deployments, while pull requests receive preview URLs for testing. Environment variables securely configure API endpoints, Stream credentials, and other sensitive information without exposing them in the codebase.
+
+Stream's infrastructure handles all real-time communication services, providing global edge locations for low-latency message delivery and video streaming. This distributed approach ensures users around the world enjoy fast, reliable communication experiences.
+
+## Development Experience
+
+The development setup prioritizes developer productivity with hot module replacement on both frontend and backend, allowing instant feedback during development. TypeScript configuration provides comprehensive type checking, catching errors during development rather than in production. Clear project structure with logical file organization makes it easy to locate and modify specific functionality.
+
+Environment-based configuration separates development and production settings, preventing accidental use of production databases or services during development. Comprehensive error messages and logging help developers quickly identify and resolve issues. The modular architecture allows multiple developers to work on different features simultaneously without conflicts.
+
+## Future Enhancements
+
+The roadmap for ConnectHub includes several exciting features that will enhance the user experience. Group chat support would enable multiple users to converse together, with features like group names, avatars, and member management. File sharing capabilities would allow users to exchange documents, images, and other files directly through the chat interface.
+
+Voice messaging would provide an alternative to text for times when typing is inconvenient. Message search functionality would help users find specific conversations or information within their chat history. Custom themes and personalization options would let users make ConnectHub their own. Push notifications on mobile devices would keep users connected even when they're not actively using the application.
+
+## Project Impact
+
+ConnectHub demonstrates expertise in full-stack development, real-time systems, third-party API integration, and modern web technologies. The project showcases the ability to design and implement complex systems with multiple interacting components, manage user authentication and authorization securely, and integrate powerful third-party services to enhance functionality.
+
+The clean architecture and well-organized codebase make ConnectHub an excellent foundation for future enhancements and demonstrate best practices in modern web development. The project proves that with the right tools and approach, building sophisticated communication platforms is achievable while maintaining code quality and user experience.
+
+## Acknowledgments
+
+ConnectHub builds upon several powerful technologies and services. Stream Chat and Stream Video provide the robust real-time infrastructure that makes instant communication possible without building complex backend systems. Shadcn UI contributes the beautiful, accessible component library that forms the foundation of the user interface. Vite offers the fast build tool and development server that makes frontend development enjoyable and productive. The broader open-source community provides countless libraries and tools that make modern web development possible.
+
+---
+
+ConnectHub represents the modern approach to building communication platforms, combining powerful third-party services with custom application logic to create engaging user experiences while maintaining clean, maintainable code.
