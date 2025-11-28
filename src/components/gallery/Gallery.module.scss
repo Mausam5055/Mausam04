@@ -2,6 +2,7 @@
     display: flex;
     margin-left: calc(-1 * var(--static-space-16));
     width: 100%;
+    padding-top: var(--static-space-32);
 }
 
 .masonryGridColumn {
@@ -9,6 +10,22 @@
     background-clip: padding-box;
 }
 
+.projectLink {
+    display: block;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform var(--transition-micro) ease;
+
+    &:hover {
+        transform: translateY(-4px);
+    }
+
+    &:hover .gridItem {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+}
+
 .gridItem {
     margin-bottom: var(--static-space-16);
+    transition: box-shadow var(--transition-micro) ease;
 }
