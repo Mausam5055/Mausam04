@@ -28,15 +28,20 @@ export default function MasonryGrid() {
           className={styles.projectLink}
           title={`${project.title} - View on GitHub`}
         >
-          <SmartImage
-            priority={index < 10}
-            sizes="(max-width: 560px) 100vw, (max-width: 1024px) 50vw, (max-width: 1440px) 33vw, 25vw"
-            radius="m"
-            aspectRatio="16 / 9"
-            src={project.image}
-            alt={project.title}
-            className={styles.gridItem}
-          />
+          <div className={styles.projectWrapper}>
+            <SmartImage
+              priority={index < 10}
+              sizes="(max-width: 560px) 100vw, (max-width: 1024px) 50vw, (max-width: 1440px) 33vw, 25vw"
+              radius="m"
+              aspectRatio="16 / 9"
+              src={project.image}
+              alt={project.title}
+              className={styles.gridItem}
+            />
+            <div className={styles.overlay}>
+              <span className={styles.githubButton}>GitHub</span>
+            </div>
+          </div>
         </a>
       ))}
     </Masonry>

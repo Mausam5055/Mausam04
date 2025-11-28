@@ -14,18 +14,69 @@
     display: block;
     cursor: pointer;
     text-decoration: none;
-    transition: transform var(--transition-micro) ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     &:hover {
-        transform: translateY(-4px);
+        transform: translateY(-2px);
     }
 
     &:hover .gridItem {
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    &:hover .overlay {
+        opacity: 1;
+        backdrop-filter: blur(8px);
+    }
+
+    &:hover .githubButton {
+        transform: translateY(0);
+        opacity: 1;
     }
 }
 
-.gridItem {
+.projectWrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-m);
     margin-bottom: var(--static-space-16);
-    transition: box-shadow var(--transition-micro) ease;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg,
+            rgba(0, 0, 0, 0.5) 0%,
+            rgba(0, 0, 0, 0.3) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: var(--radius-m);
+    backdrop-filter: blur(0px);
+}
+
+.githubButton {
+    padding: 12px 32px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(10px);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+}
+
+.gridItem {
+    width: 100%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
