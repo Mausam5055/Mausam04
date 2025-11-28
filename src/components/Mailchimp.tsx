@@ -116,6 +116,7 @@ export const Mailchimp = ({ newsletter }: { newsletter: NewsletterProps }) => {
         {newsletter.title}
       </Heading>
       <Text
+        className="hide-on-mobile"
         style={{
           position: "relative",
           maxWidth: "var(--responsive-width-xs)",
